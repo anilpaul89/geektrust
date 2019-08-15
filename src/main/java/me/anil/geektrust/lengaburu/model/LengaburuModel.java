@@ -3,6 +3,7 @@ package me.anil.geektrust.lengaburu.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import me.anil.geektrust.lengaburu.exception.PersonNotFoundException;
 import me.anil.geektrust.lengaburu.utils.GenderTypeEnum;
 
 public class LengaburuModel {
@@ -13,13 +14,13 @@ public class LengaburuModel {
 
 	private static LengaburuModel lengaburu;
 
-	private static Map<String, Person> members;
+	private Map<String, Person> members;
 
 	public Person getKing() {
 		return king;
 	}
 
-	public void setKing(Person king) {
+	private void setKing(Person king) {
 		this.king = king;
 	}
 
@@ -27,36 +28,63 @@ public class LengaburuModel {
 		return queen;
 	}
 
-	public void setQueen(Person queen) {
+	private void setQueen(Person queen) {
 		this.queen = queen;
 	}
 
 	private LengaburuModel() {
-
+		members = new LinkedHashMap<String, Person>();
 	}
 
 	public static LengaburuModel getLengaburuModel() {
 		if (lengaburu == null) {
 			lengaburu = new LengaburuModel();
+			// Adding King
 			Person king = new Person("King Shan", GenderTypeEnum.MALE);
+			// Adding Queen
 			Person queen = new Person("Queen Anga", GenderTypeEnum.FEMALE);
+			// Setting the relation
 			king.setSpouse(queen);
 			queen.setSpouse(king);
+
+			// Adding the king and queen to lengaburu model
 			lengaburu.setKing(king);
 			lengaburu.setQueen(queen);
-			members = new LinkedHashMap<String, Person>();
-			members.put(king.getName(), king);
-			members.put(queen.getName(), queen);
+
+			// Adding king and queen to the member details
+			lengaburu.addNewMember(king.getName(), king);
+			lengaburu.addNewMember(queen.getName(), queen);
+
 		}
 		return lengaburu;
 	}
 
-	public static void addNewMember(String name, Person person) {
+	/*
+	 * Needs to call this method when ever a new member is added to the family
+	 * 
+	 * @param : Name of the person
+	 * 
+	 * @param : Person
+	 */
+	public void addNewMember(String name, Person person) {
 		members.put(name, person);
 	}
 
-	public static Person getMember(String name) {
-		return members.get(name);
+	/*
+	 * Needs to call this method return the person with the given name
+	 * 
+	 * @param : Name of the person
+	 * 
+	 * @return : Person
+	 * 
+	 * 
+	 */
+	public Person getMember(String name) throws PersonNotFoundException {
+		Person person = members.get(name);
+		if (person == null) {
+			throw new PersonNotFoundException();
+		}
+		return person;
 	}
 
 }

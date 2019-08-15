@@ -5,7 +5,7 @@ import me.anil.geektrust.lengaburu.utils.Constants;
 /*
  * Exception thrown when a child cannot be added
  */
-public class ChildAdditionException extends Exception {
+public class ChildAdditionException extends LengaburuBaseException {
 
 	/**
 	 * 

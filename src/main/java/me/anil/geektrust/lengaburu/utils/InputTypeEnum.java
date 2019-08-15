@@ -5,5 +5,5 @@ package me.anil.geektrust.lengaburu.utils;
  */
 public enum InputTypeEnum {
 
-	ADD_CHILD, GET_RELATIONSHIP;
+	ADD_CHILD, GET_RELATIONSHIP,ADD_SPOUSE;
 }

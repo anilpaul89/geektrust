@@ -5,8 +5,10 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import me.anil.geektrust.lengaburu.search.FamilySearchTest;
-import me.anil.geektrust.lengaburu.service.AddMemberServiceTest;
+import me.anil.geektrust.lengaburu.commands.AddChildProcessTest;
+import me.anil.geektrust.lengaburu.commands.AddSpouseProcessTest;
+import me.anil.geektrust.lengaburu.commands.GetRelationShipProcessTest;
+import me.anil.geektrust.lengaburu.model.LengaburuModelTest;
 import me.anil.geektrust.lengaburu.service.RelationshipFinderServiceTest;
 
 /**
@@ -20,8 +22,8 @@ public class LengaburuMainTest {
 	}
 
 	public static void main(String[] args) {
-		Result result = JUnitCore.runClasses(AddMemberServiceTest.class, RelationshipFinderServiceTest.class,
-				FamilySearchTest.class);
+		Result result = JUnitCore.runClasses(RelationshipFinderServiceTest.class, LengaburuModelTest.class,
+				GetRelationShipProcessTest.class, AddSpouseProcessTest.class, AddChildProcessTest.class);
 
 		for (Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());

@@ -4,6 +4,8 @@ public class Constants {
 
 	public static final String EMPTY_SPACE = " ";
 	
+	public static final String EMPTY_STRING = "";
+	
 	public static final String NONE = "NONE";
 	
 	public static final String WRONG_COMMAND = "Wrong Command";

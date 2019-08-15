@@ -5,7 +5,7 @@ import me.anil.geektrust.lengaburu.utils.Constants;
 /*
  * Exception thrown when a person is not found
  */
-public class PersonNotFoundException extends Exception {
+public class PersonNotFoundException extends LengaburuBaseException {
 
 	/**
 	 * 

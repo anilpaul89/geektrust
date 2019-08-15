@@ -2,6 +2,7 @@ package me.anil.geektrust.lengaburu.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import me.anil.geektrust.lengaburu.utils.GenderTypeEnum;
 
@@ -67,10 +68,6 @@ public class Person {
 		return children;
 	}
 
-	public void setChildren(List<Person> children) {
-		this.children = children;
-	}
-
 	public Person getSpouse() {
 		return spouse;
 	}
@@ -105,6 +102,50 @@ public class Person {
 	public List<Person> findChildren() {
 		return this.isFemale() ? this.getChildren()
 				: this.getSpouse() != null ? this.getSpouse().getChildren() : new ArrayList<Person>();
+	}
+
+	/*
+	 * This method return the siblings of a given person
+	 * 
+	 * @param person
+	 * 
+	 * @return List of persons - siblings
+	 */
+	public List<Person> findSiblings() {
+		List<Person> siblings = new ArrayList<Person>();
+		if (this.getMother() != null) {
+			// find the mother of current person and then get the children and remove the
+			// current person
+			siblings = this.getMother().findChildren().stream().filter(per -> !per.getName().equals(this.getName()))
+					.collect(Collectors.toList());
+		}
+		return siblings;
+	}
+
+	/*
+	 * This method return the sons of a given person
+	 * 
+	 * @param person
+	 * 
+	 * @return List of persons
+	 */
+	public List<Person> findSon() {
+		List<Person> son = new ArrayList<Person>();
+		son = this.findChildren().stream().filter(per -> !per.isFemale()).collect(Collectors.toList());
+		return son;
+	}
+
+	/*
+	 * This method return the daughter of a given person
+	 * 
+	 * @param person
+	 * 
+	 * @return List of persons
+	 */
+	public List<Person> findDaughter() {
+		List<Person> daughters = new ArrayList<Person>();
+		daughters = this.findChildren().stream().filter(per -> per.isFemale()).collect(Collectors.toList());
+		return daughters;
 	}
 
 }
